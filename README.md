@@ -6,18 +6,18 @@
 ![Loader](https://img.shields.io/badge/NeoForge-21.1.244%2B-orange?style=flat-square)
 ![Language](https://img.shields.io/badge/Java-21-blue?style=flat-square)
 ![License](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)
-![Optional mods](https://img.shields.io/badge/Cataclysm%20%C2%B7%20Legendary%20Monsters-14%20weapons-lightgrey?style=flat-square)
+![Optional mods](https://img.shields.io/badge/Cataclysm%20%C2%B7%20Legendary%20Monsters-14%20weapons%20and%20shields-lightgrey?style=flat-square)
 
-Give a companion one of **14 legendary weapons** from
+Give a companion one of **14 legendary weapons and shields** from
 [L_Ender's Cataclysm](https://www.curseforge.com/minecraft/mc-mods/lendercataclysm) or
 [Legendary Monsters](https://www.curseforge.com/minecraft/mc-mods/legendary-monsters), and it will wield
 that weapon the way the name suggests: charging the Incinerator, throwing Brontes and waiting for the
 hammer to come back, dashing with Soul Render, laying the Void Forge rune lattice — and *not* accidentally
 nuking you while doing it.
 
-This addon adds **no weapons, blocks, mobs or textures of its own**. The 14 weapons stay exactly as their
-source mods made them. It only teaches companion entities **when and how** to use the skills those weapons
-already have, with damage and cooldown numbers taken from the source mods wherever possible.
+This addon adds **no weapons, blocks, mobs or textures of its own**. The 14 weapons and shields stay exactly
+as their source mods made them. It only teaches companion entities **when and how** to use the skills those
+weapons already have, with damage and cooldown numbers taken from the source mods wherever possible.
 
 ## Table of contents
 
@@ -43,7 +43,8 @@ already have, with damage and cooldown numbers taken from the source mods wherev
   and fans out waves point-blank; Axe of Lightning alternates bolt barrage and electric burst.
 - **Numbers from the source mods.** Damage, cooldowns and entity types are read from the source mods' own
   config and registries where their code allows it, so a companion's pillar of fire hits about as hard as
-  yours does with the same weapon.
+  yours does with the same weapon. Default cooldowns mirror the source mods and can be overridden in the
+  config.
 - **Ally protection on by default.** Shockwaves, pillars, waves and charges filter out players, other
   companions and the owner's pets — no damage, no knockback. Every protection can be switched off per
   skill in the config to get vanilla behaviour back.
@@ -55,20 +56,22 @@ already have, with damage and cooldown numbers taken from the source mods wherev
   retaliation) is skipped — normal blocking (damage reduction, arrow blocks, durability loss, the blocking
   animation) is untouched. Players are unaffected.
 - **Smart, not spammy.** Only one skill starts per scan, in a priority order **you** control, so a
-  multi-weapon companion does not dump every cooldown at once. Normal melee attacks are never blocked.
+  multi-weapon companion does not dump every cooldown at once. Apart from skills that intentionally lock
+  melee (e.g., Brontes), normal melee attacks are not blocked.
 - **Fully configurable, hot-reloadable.** One TOML file covers every skill's master switch, cooldown,
   ranges, thresholds and damage; the skill priority table is a JSON file you can apply in game with
   `/mce skills reload` — no restart. Config comments are bilingual: English first line, Chinese second.
 - **Fails safe.** All cross-mod access is wrapped in guards: if an optional mod is missing, its skills are
-  simply skipped. If an update renames a class or a sound, that one part goes quiet and the log says which
-  — the game keeps running. Everything is written to the log under `[MCE]`.
+  simply skipped. If an update renames a class or a sound, that one part goes quiet and the log says which:
+  every such path is designed to fail safely, so the game keeps running. Everything is written to the log
+  under `[MCE]`.
 
 ---
 
 ## Supported Weapons
 
-14 skills in total. Within each table, weapons are listed in the order the default priority table runs
-them. 20 ticks = 1 second.
+14 weapon skill sets in total. Within each table, weapons are listed in the order the default priority
+table runs them. 20 ticks = 1 second.
 
 ### From L_Ender's Cataclysm (9 weapons)
 
@@ -89,7 +92,7 @@ them. 20 ticks = 1 second.
 | Weapon | Item ID | What your companion does | Default cooldown |
 |--------|---------|--------------------------|------------------|
 | Buckler of Annihilation | `legendary_monsters:buckler_of_annihilation` | Point-blank bash plus arcing annihilation bombs | 200 t on hit / 60 t on miss |
-| Monstrous Anchor | `legendary_monsters:monstrous_anchor` | Stun shockwave (3-block box, ~3 s stun, no damage) and a splash on every melee hit | 200 t (10 s) |
+| Monstrous Anchor | `legendary_monsters:monstrous_anchor` | Stun shockwave (~3 s stun, no damage) with a 10 s cooldown, plus an uncooled splash on every melee hit | 200 t (10 s) shockwave; the splash has no cooldown (10 t rate-limit) |
 | Soul Great Sword | `legendary_monsters:soul_great_sword` | Passive parry (immunity + counterattack + counter AoE + heal) and a thrown Phantom Dagger | parry 200 t / dagger 120 t |
 | Axe of Lightning | `legendary_monsters:axe_of_lightning` | Lightning bolt barrage at range, electric burst when swarmed up close | 150 t (7.5 s) |
 | The Tesseract | `legendary_monsters:the_tesseract` | Charges 1.5 s, then opens a pentagram of annihilation portals ending in an explosion | 150 t (7.5 s) |
@@ -209,7 +212,7 @@ works too — the pentagram is laid out around the caster, so it fires in place 
 - **A source-mod update can break individual skills.** All cross-mod access is by name (reflection and
   three mixins into Legendary Monsters' shield handlers). If Cataclysm or Legendary Monsters renames a
   class, field or sound in a future version, the affected skill may go quiet or lose its visual/sound —
-  logged under `[MCE]`, never fatal. Fixing it needs a new build of this addon.
+  logged under `[MCE]` and designed to fail safely. Fixing it needs a new build of this addon.
 - **Only 1.21.1 / NeoForge is tested.** Other Minecraft versions and other loaders (Fabric, classic Forge)
   are not supported and are not expected to work.
 - **Companions run their own scheduling**, not the vanilla right-click entry point. That means a companion
