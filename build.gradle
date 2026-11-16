@@ -1,0 +1,42 @@
+plugins {
+    id 'java-library'
+    id 'net.neoforged.moddev' version '2.0.143'
+}
+// 发布用版本号：剥掉构建平台每轮追加的 -rNN 内部后缀，
+// 产物固定为 modern_companions_expand-1.21.1-1.0.0.jar，mods.toml 里也写 1.0.0。
+def releaseVersion = mod_version.replaceAll(/-r\d+.*$/, '')
+version = "${minecraft_version}-${releaseVersion}"
+group = mod_group_id
+base { archivesName = mod_id }
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+neoForge {
+    version = project.neo_version
+    runs { client { client() }; server { server(); programArgument '--nogui' } }
+    mods { "${mod_id}" { sourceSet(sourceSets.main) } }
+}
+tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
+// Mixin 基建（r40）：MDG 2.0.143 没把 NeoForge 自带的 sponge-mixin 放编译路径，
+// 手动补 compileOnly——版本与 NeoForge 21.1.244 运行时库清单（userdev config.json）
+// 里的 net.fabricmc:sponge-mixin 0.15.2+mixin.0.8.7 完全一致，只借注解；
+// 运行时用加载器自带的 mixin，compileOnly 不进 jar、不冲突。
+// 双保险：Maven 坐标（缓存已含）+ 共享 Gradle 缓存内的规范 jar 路径。
+repositories {
+    maven { url = 'https://maven.neoforged.net/releases' }
+    maven { url = 'https://maven.fabricmc.net' }
+}
+dependencies {
+    def mixinJar = file('/data/gradle/caches/modules-2/files-2.1/net.fabricmc/sponge-mixin/0.15.2+mixin.0.8.7/2af2f021d8e02a0220dc27a7a72b4666d66d44ca/sponge-mixin-0.15.2+mixin.0.8.7.jar')
+    if (mixinJar.exists()) {
+        compileOnly files(mixinJar)
+    } else {
+        compileOnly 'net.fabricmc:sponge-mixin:0.15.2+mixin.0.8.7'
+    }
+}
+processResources {
+    def props = [minecraft_version: minecraft_version, minecraft_version_range: minecraft_version_range,
+                 neo_version: neo_version, loader_version_range: loader_version_range,
+                 mod_id: mod_id, mod_name: mod_name, mod_authors: mod_authors, mod_license: mod_license, mod_version: releaseVersion]
+    inputs.properties props
+    filteringCharset = 'UTF-8'
+    filesMatching('META-INF/neoforge.mods.toml') { expand props }
+}

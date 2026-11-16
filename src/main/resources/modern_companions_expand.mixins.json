@@ -1,0 +1,13 @@
+{
+  "required": false,
+  "minVersion": "0.8",
+  "package": "cn.blockforge.generated.moderncompanionsexpand.mixin",
+  "mixins": [
+    "LMFrostbittenShieldPassiveMixin",
+    "LMShulkerShieldPassiveMixin",
+    "LMForgeEventsSpikyShieldPassiveMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 0
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "legendary_monsters:dinosaur_bone_shield",
+      "required": false
+    },
+    {
+      "id": "legendary_monsters:shulker_shield",
+      "required": false
+    },
+    {
+      "id": "legendary_monsters:frostbitten_shield",
+      "required": false
+    },
+    {
+      "id": "legendary_monsters:spiky_shield",
+      "required": false
+    }
+  ]
+}

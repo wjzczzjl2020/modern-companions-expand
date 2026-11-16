@@ -1,0 +1,13 @@
+{
+  "modern_companions_expand.config.incinerator.enabled": "Incinerator skill master switch",
+  "modern_companions_expand.config.incinerator.cooldown": "Incinerator skill cooldown (ticks)",
+  "modern_companions_expand.config.incinerator.check_interval": "Skill scan interval (ticks)",
+  "modern_companions_expand.config.charge.ticks": "Charge duration (ticks)",
+  "modern_companions_expand.config.charge.break_distance": "Charge break distance (blocks)",
+  "modern_companions_expand.config.charge.retry_ticks": "Retry delay after charge interrupt (ticks)",
+  "modern_companions_expand.config.charge.incinerator_interrupt_damage": "Incinerator cumulative damage interrupt threshold",
+  "modern_companions_expand.config.bulwark.enabled": "Bulwark of the Flame skill master switch",
+  "modern_companions_expand.config.bulwark.cooldown": "Bulwark charge cooldown (ticks)",
+  "modern_companions_expand.config.bulwark.hold_velocity": "Hold velocity during charge window",
+  "modern_companions_expand.config.bulwark.friendly_knockback": "Knock allies with charge (default off = protect allies)"
+}

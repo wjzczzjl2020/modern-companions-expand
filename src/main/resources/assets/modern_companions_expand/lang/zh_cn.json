@@ -1,0 +1,13 @@
+{
+  "modern_companions_expand.config.incinerator.enabled": "Incinerator 技能总开关",
+  "modern_companions_expand.config.incinerator.cooldown": "Incinerator 技能冷却（tick）",
+  "modern_companions_expand.config.incinerator.check_interval": "技能启动扫描间隔（tick）",
+  "modern_companions_expand.config.charge.ticks": "蓄力时长（tick）",
+  "modern_companions_expand.config.charge.break_distance": "蓄力打断距离（格）",
+  "modern_companions_expand.config.charge.retry_ticks": "蓄力打断后的重试延迟（tick）",
+  "modern_companions_expand.config.charge.incinerator_interrupt_damage": "炎葬蓄力累计伤害打断阈值",
+  "modern_companions_expand.config.bulwark.enabled": "火焰壁垒技能总开关",
+  "modern_companions_expand.config.bulwark.cooldown": "火焰壁垒冷却（tick）",
+  "modern_companions_expand.config.bulwark.hold_velocity": "冲锋窗口内钉住速度",
+  "modern_companions_expand.config.bulwark.friendly_knockback": "冲锋击飞友军开关（默认关=保护友军）"
+}
